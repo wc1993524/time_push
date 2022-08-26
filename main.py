@@ -138,7 +138,24 @@ def tuweiqinghua():
         conn = http.client.HTTPSConnection('api.tianapi.com')  #接口域名
         params = urllib.parse.urlencode({'key':caihongpi_API})
         headers = {'Content-type':'application/x-www-form-urlencoded'}
-        conn.request('POST','/caihongpi/index',params,headers)
+        conn.request('POST','/saylove/index',params,headers)
+        res = conn.getresponse()
+        data = res.read()
+        data = json.loads(data)
+        data = data["newslist"][0]["content"]
+        if("XXX" in data):
+            data.replace("XXX","玉🐷")
+        return data
+    else:
+        return ""
+
+#毒鸡汤
+def dujitang():
+    if (dujitang_API!="否"):
+        conn = http.client.HTTPSConnection('api.tianapi.com')  #接口域名
+        params = urllib.parse.urlencode({'key':caihongpi_API})
+        headers = {'Content-type':'application/x-www-form-urlencoded'}
+        conn.request('POST','/dujitang/index',params,headers)
         res = conn.getresponse()
         data = res.read()
         data = json.loads(data)
@@ -211,7 +228,7 @@ def tip():
         return "",""
 
 #推送信息
-def send_message(to_user, access_token, city_name, weather, max_temperature, min_temperature, pipi,tuwei, lizhi, pop, tips, note_en, note_ch, health_tip, lucky_):
+def send_message(to_user, access_token, city_name, weather, max_temperature, min_temperature, pipi,tuwei,dujitang, lizhi, pop, tips, note_en, note_ch, health_tip, lucky_):
     url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}".format(access_token)
     week_list = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
     year = localtime().tm_year
@@ -277,6 +294,11 @@ def send_message(to_user, access_token, city_name, weather, max_temperature, min
 
             "tuwei": {
                 "value": tuwei,
+                "color": get_color()
+            },
+
+            "dujitang": {
+                "value": dujitang,
                 "color": get_color()
             },
 
@@ -352,8 +374,10 @@ if __name__ == "__main__":
     weather, max_temperature, min_temperature = get_weather(province, city)
     #获取彩虹屁API
     caihongpi_API=config["caihongpi_API"]
-    # 获取彩虹屁API
+    #获取土味情话API
     tuweiqinghua_API = config["tuweiqinghua_API"]
+    # 获取毒鸡汤API
+    dujitang_API = config["dujitang_API"]
     #获取励志古言API
     lizhi_API=config["lizhi_API"]
     #获取天气预报API
@@ -372,6 +396,8 @@ if __name__ == "__main__":
     pipi = caihongpi()
     #土味情话
     tuwei = tuweiqinghua()
+    #毒鸡汤
+    dujitang = dujitang()
     #健康小提示
     health_tip = health()
     #下雨概率和建议
@@ -382,7 +408,7 @@ if __name__ == "__main__":
     lucky_ = lucky()
     # 公众号推送消息
     for user in users:
-        send_message(user, accessToken, city, weather, max_temperature, min_temperature, pipi,tuwei, lizhi,pop,tips, note_en, note_ch, health_tip, lucky_)
+        send_message(user, accessToken, city, weather, max_temperature, min_temperature, pipi,tuwei,dujitang, lizhi,pop,tips, note_en, note_ch, health_tip, lucky_)
     import time
     time_duration = 3.5
     time.sleep(time_duration)
