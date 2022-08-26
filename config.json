@@ -1,7 +1,7 @@
 {
   "app_id": "wx4665653978ccd683",
   "app_secret": "a8e367a7dd1014a4616cec41b9ba7c0c",
-  "template_id": "H1pcbefMaO34u0sBA-FsPa4KmfnAHJYJzpsOO_poxgM",
+  "template_id": "eMBuE4mEhi4PrWDe0ZOuZYWC2dOCx_0qcNWTdngqDG4",
   "user": ["oyiMv5uW4tWT_atYUM2NSSamaDxc","oyiMv5jm55Z_g4OpwyYodPT2c2AM"],
   "province": "北京",
   "city": "北京",
@@ -12,6 +12,7 @@
   "Whether_Eng": "",
   "caihongpi_API": "79f63a6c9939225309ee34ef75136847",
   "tuweiqinghua_API": "79f63a6c9939225309ee34ef75136847",
+  "dujitang_API": "79f63a6c9939225309ee34ef75136847",
   "lizhi_API": "\u5426",
   "tianqi_API": "否",
   "health_API": "79f63a6c9939225309ee34ef75136847",
