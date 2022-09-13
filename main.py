@@ -63,7 +63,12 @@ def get_birthday(birthday, year, today):
         birth_day = str(birth_date.__sub__(today)).split(" ")[0]
     return birth_day
 
-
+def daysBetweenDates(date1, date2):
+    y1, m1, d1 = date1.split("-")
+    y2, m2, d2 = date2.split("-")
+    cur_day = datetime(int(y1), int(m1), int(d1))
+    next_day = datetime(int(y2), int(m2), int(d2))
+    return abs((next_day - cur_day).days)
 
 def get_weather(province, city):
     # 城市id
@@ -243,6 +248,8 @@ def send_message(to_user, access_token, city_name, weather, max_temperature, min
     love_date = date(love_year, love_month, love_day)
     # 获取在一起的日期差
     love_days = str(today.__sub__(love_date)).split(" ")[0]
+    # 获取订婚日期差
+    dinghun_days = daysBetweenDates(str((datetime.now()).date()), '2023-02-14')
     # 获取所有生日数据
     birthdays = {}
     for k, v in config.items():
