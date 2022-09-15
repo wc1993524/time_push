@@ -7,6 +7,8 @@ import sys
 import os
 import http.client, urllib
 import json
+
+
 # from zhdate import ZhDate
 
 def get_color():
@@ -31,6 +33,7 @@ def get_access_token():
         sys.exit(1)
     # print(access_token)
     return access_token
+
 
 def get_birthday(birthday, year, today):
     birthday_year = birthday.split("-")[0]
@@ -102,82 +105,84 @@ def get_weather(province, city):
     return weather, temp, tempn
 
 
-
-#词霸每日一句
+# 词霸每日一句
 def get_ciba():
-    if (Whether_Eng!="否"):
+    if (Whether_Eng != "否"):
         url = "http://open.iciba.com/dsapi/"
         headers = {
             'Content-Type': 'application/json',
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
-                        'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+                          'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
         }
         r = get(url, headers=headers)
         note_en = r.json()["content"]
         note_ch = r.json()["note"]
         return note_ch, note_en
     else:
-        return "",""
+        return "", ""
 
 
-#彩虹屁
+# 彩虹屁
 def caihongpi():
-    if (caihongpi_API!="否"):
-        conn = http.client.HTTPSConnection('api.tianapi.com')  #接口域名
-        params = urllib.parse.urlencode({'key':caihongpi_API})
-        headers = {'Content-type':'application/x-www-form-urlencoded'}
-        conn.request('POST','/caihongpi/index',params,headers)
+    if (caihongpi_API != "否"):
+        conn = http.client.HTTPSConnection('api.tianapi.com')  # 接口域名
+        params = urllib.parse.urlencode({'key': caihongpi_API})
+        headers = {'Content-type': 'application/x-www-form-urlencoded'}
+        conn.request('POST', '/caihongpi/index', params, headers)
         res = conn.getresponse()
         data = res.read()
         data = json.loads(data)
         data = data["newslist"][0]["content"]
-        if("XXX" in data):
-            data.replace("XXX","玉🐷")
+        if ("XXX" in data):
+            data.replace("XXX", "玉🐷")
         return data
     else:
         return ""
 
-#土味情话
+
+# 土味情话
 def tuweiqinghua():
-    if (tuweiqinghua_API!="否"):
-        conn = http.client.HTTPSConnection('api.tianapi.com')  #接口域名
-        params = urllib.parse.urlencode({'key':caihongpi_API})
-        headers = {'Content-type':'application/x-www-form-urlencoded'}
-        conn.request('POST','/saylove/index',params,headers)
+    if (tuweiqinghua_API != "否"):
+        conn = http.client.HTTPSConnection('api.tianapi.com')  # 接口域名
+        params = urllib.parse.urlencode({'key': caihongpi_API})
+        headers = {'Content-type': 'application/x-www-form-urlencoded'}
+        conn.request('POST', '/saylove/index', params, headers)
         res = conn.getresponse()
         data = res.read()
         data = json.loads(data)
         data = data["newslist"][0]["content"]
-        if("XXX" in data):
-            data.replace("XXX","玉🐷")
+        if ("XXX" in data):
+            data.replace("XXX", "玉🐷")
         return data
     else:
         return ""
 
-#毒鸡汤
+
+# 毒鸡汤
 def dujitang():
-    if (dujitang_API!="否"):
-        conn = http.client.HTTPSConnection('api.tianapi.com')  #接口域名
-        params = urllib.parse.urlencode({'key':caihongpi_API})
-        headers = {'Content-type':'application/x-www-form-urlencoded'}
-        conn.request('POST','/dujitang/index',params,headers)
+    if (dujitang_API != "否"):
+        conn = http.client.HTTPSConnection('api.tianapi.com')  # 接口域名
+        params = urllib.parse.urlencode({'key': caihongpi_API})
+        headers = {'Content-type': 'application/x-www-form-urlencoded'}
+        conn.request('POST', '/dujitang/index', params, headers)
         res = conn.getresponse()
         data = res.read()
         data = json.loads(data)
         data = data["newslist"][0]["content"]
-        if("XXX" in data):
-            data.replace("XXX","玉🐷")
+        if ("XXX" in data):
+            data.replace("XXX", "玉🐷")
         return data
     else:
         return ""
 
-#健康小提示API
+
+# 健康小提示API
 def health():
-    if (health_API!="否"):
-        conn = http.client.HTTPSConnection('api.tianapi.com')  #接口域名
-        params = urllib.parse.urlencode({'key':health_API})
-        headers = {'Content-type':'application/x-www-form-urlencoded'}
-        conn.request('POST','/healthtip/index',params,headers)
+    if (health_API != "否"):
+        conn = http.client.HTTPSConnection('api.tianapi.com')  # 接口域名
+        params = urllib.parse.urlencode({'key': health_API})
+        headers = {'Content-type': 'application/x-www-form-urlencoded'}
+        conn.request('POST', '/healthtip/index', params, headers)
         res = conn.getresponse()
         data = res.read()
         data = json.loads(data)
@@ -186,54 +191,60 @@ def health():
     else:
         return ""
 
-#星座运势
+
+# 星座运势
 def lucky():
-    if (lucky_API!="否"):
-        conn = http.client.HTTPSConnection('api.tianapi.com')  #接口域名
-        params = urllib.parse.urlencode({'key':lucky_API,'astro':astro})
-        headers = {'Content-type':'application/x-www-form-urlencoded'}
-        conn.request('POST','/star/index',params,headers)
+    if (lucky_API != "否"):
+        conn = http.client.HTTPSConnection('api.tianapi.com')  # 接口域名
+        params = urllib.parse.urlencode({'key': lucky_API, 'astro': astro})
+        headers = {'Content-type': 'application/x-www-form-urlencoded'}
+        conn.request('POST', '/star/index', params, headers)
         res = conn.getresponse()
         data = res.read()
         data = json.loads(data)
-        data = "速配星座："+str(data["newslist"][7]["content"])+"\n爱情指数："+str(data["newslist"][1]["content"])+"   工作指数："+str(data["newslist"][2]["content"])+"\n今日概述："+str(data["newslist"][8]["content"])
+        data = "速配星座：" + str(data["newslist"][7]["content"]) + "\n爱情指数：" + str(
+            data["newslist"][1]["content"]) + "   工作指数：" + str(data["newslist"][2]["content"]) + "\n今日概述：" + str(
+            data["newslist"][8]["content"])
         return data
     else:
         return ""
 
-#励志名言
+
+# 励志名言
 def lizhi():
-    if (lizhi_API!="否"):
-        conn = http.client.HTTPSConnection('api.tianapi.com')  #接口域名
-        params = urllib.parse.urlencode({'key':lizhi_API})
-        headers = {'Content-type':'application/x-www-form-urlencoded'}
-        conn.request('POST','/lzmy/index',params,headers)
+    if (lizhi_API != "否"):
+        conn = http.client.HTTPSConnection('api.tianapi.com')  # 接口域名
+        params = urllib.parse.urlencode({'key': lizhi_API})
+        headers = {'Content-type': 'application/x-www-form-urlencoded'}
+        conn.request('POST', '/lzmy/index', params, headers)
         res = conn.getresponse()
         data = res.read()
         data = json.loads(data)
         return data["newslist"][0]["saying"]
     else:
         return ""
-        
 
-#下雨概率和建议
+
+# 下雨概率和建议
 def tip():
-    if (tianqi_API!="否"):
-        conn = http.client.HTTPSConnection('api.tianapi.com')  #接口域名
-        params = urllib.parse.urlencode({'key':tianqi_API,'city':city})
-        headers = {'Content-type':'application/x-www-form-urlencoded'}
-        conn.request('POST','/tianqi/index',params,headers)
+    if (tianqi_API != "否"):
+        conn = http.client.HTTPSConnection('api.tianapi.com')  # 接口域名
+        params = urllib.parse.urlencode({'key': tianqi_API, 'city': city})
+        headers = {'Content-type': 'application/x-www-form-urlencoded'}
+        conn.request('POST', '/tianqi/index', params, headers)
         res = conn.getresponse()
         data = res.read()
         data = json.loads(data)
         pop = data["newslist"][0]["pop"]
         tips = data["newslist"][0]["tips"]
-        return pop,tips
+        return pop, tips
     else:
-        return "",""
+        return "", ""
 
-#推送信息
-def send_message(to_user, access_token, city_name, weather, max_temperature, min_temperature, pipi,tuwei,dujitang, lizhi, pop, tips, note_en, note_ch, health_tip, lucky_):
+
+# 推送信息
+def send_message(to_user, access_token, city_name, weather, max_temperature, min_temperature, pipi, tuwei, dujitang,
+                 lizhi, pop, tips, note_en, note_ch, health_tip, lucky_):
     url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}".format(access_token)
     week_list = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
     year = localtime().tm_year
@@ -283,6 +294,10 @@ def send_message(to_user, access_token, city_name, weather, max_temperature, min
             },
             "love_day": {
                 "value": love_days,
+                "color": get_color()
+            },
+            "dinghun_day": {
+                "value": dinghun_days,
                 "color": get_color()
             },
             "note_en": {
@@ -379,43 +394,45 @@ if __name__ == "__main__":
     # 传入省份和市获取天气信息
     province, city = config["province"], config["city"]
     weather, max_temperature, min_temperature = get_weather(province, city)
-    #获取彩虹屁API
-    caihongpi_API=config["caihongpi_API"]
-    #获取土味情话API
+    # 获取彩虹屁API
+    caihongpi_API = config["caihongpi_API"]
+    # 获取土味情话API
     tuweiqinghua_API = config["tuweiqinghua_API"]
     # 获取毒鸡汤API
     dujitang_API = config["dujitang_API"]
-    #获取励志古言API
-    lizhi_API=config["lizhi_API"]
-    #获取天气预报API
-    tianqi_API=config["tianqi_API"]
-    #是否启用词霸每日金句
-    Whether_Eng=config["Whether_Eng"]
-    #获取健康小提示API
-    health_API=config["health_API"]
-    #获取星座运势API
-    lucky_API=config["lucky_API"]
-    #获取星座
+    # 获取励志古言API
+    lizhi_API = config["lizhi_API"]
+    # 获取天气预报API
+    tianqi_API = config["tianqi_API"]
+    # 是否启用词霸每日金句
+    Whether_Eng = config["Whether_Eng"]
+    # 获取健康小提示API
+    health_API = config["health_API"]
+    # 获取星座运势API
+    lucky_API = config["lucky_API"]
+    # 获取星座
     astro = config["astro"]
     # 获取词霸每日金句
     note_ch, note_en = get_ciba()
-    #彩虹屁
+    # 彩虹屁
     pipi = caihongpi()
-    #土味情话
+    # 土味情话
     tuwei = tuweiqinghua()
-    #毒鸡汤
+    # 毒鸡汤
     dujitang = dujitang()
-    #健康小提示
+    # 健康小提示
     health_tip = health()
-    #下雨概率和建议
-    pop,tips = tip()
-    #励志名言
+    # 下雨概率和建议
+    pop, tips = tip()
+    # 励志名言
     lizhi = lizhi()
-    #星座运势
+    # 星座运势
     lucky_ = lucky()
     # 公众号推送消息
     for user in users:
-        send_message(user, accessToken, city, weather, max_temperature, min_temperature, pipi,tuwei,dujitang, lizhi,pop,tips, note_en, note_ch, health_tip, lucky_)
+        send_message(user, accessToken, city, weather, max_temperature, min_temperature, pipi, tuwei, dujitang, lizhi,
+                     pop, tips, note_en, note_ch, health_tip, lucky_)
     import time
+
     time_duration = 3.5
     time.sleep(time_duration)
